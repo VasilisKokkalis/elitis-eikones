@@ -1,33 +1,34 @@
 <!DOCTYPE html>
-<html lang="el">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ο Θηλυς Άγγελος - A-Frame</title>
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-</head>
-<body>
-  <a-scene>
-    <!-- Φόντο -->
-    <a-sky color="#000"></a-sky>
-
-    <!-- Φωτισμός -->
-    <a-light type="ambient" intensity="0.7"></a-light>
-
-    <!-- Εικόνα Αγγέλου -->
-    <a-image 
-      src="angel.jpg" 
-      position="0 1.5 -3" 
-      width="2" 
-      height="3">
-    </a-image>
-
-    <!-- Κείμενο του ποιήματος -->
-    <a-entity 
-      position="-1 2 -3" 
-      text="value: Ο Θηλυς Άγγελος\n\nΤου Οδυσσέα Ελύτη;
-            align: center; width: 3; color: white;">
-    </a-entity>
-  </a-scene>
-</body>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- Φόρτωση των assets (εικόνες) -->
+      <a-assets>
+        <img id="angelImage" src="C:/Users/billa/my-3d-project/angel.jpg">
+      </a-assets>
+      
+      <!-- Μείωση της φωτεινότητας -->
+      <a-light type="directional" position="0 5 -3" intensity="0.3"></a-light>
+      <a-light type="ambient" intensity="0.2"></a-light>
+      
+      <!-- Κάμερα -->
+      <a-entity position="0 1.6 4">
+        <a-camera></a-camera>
+      </a-entity>
+      
+      <!-- Αγγελος (ως εικόνα) -->
+      <a-image 
+        id="angel" 
+        src="#angelImage" 
+        position="0 1 -3" 
+        width="2" 
+        height="3"
+        animation="property: position; from: 1 1 -3; to: -1 1 -3; dur: 3000; easing: linear; loop: true; dir: alternate"
+        animation__rotation="property: rotation; from: 0 0 0; to: 0 360 0; dur: 6000; easing: linear; loop: true">
+      </a-image>
+    </a-scene>
+  </body>
 </html>
