@@ -1,0 +1,51 @@
+!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Frame Circular Motion</title>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script>
+        AFRAME.registerComponent('circular-motion', {
+            schema: {
+                radius: {type: 'number', default: 2},  // Ακτίνα κύκλου
+                speed: {type: 'number', default: 0.5}  // Ταχύτητα περιστροφής
+            },
+            init: function () {
+                this.angle = 0;  // Αρχική γωνία
+            },
+            tick: function (time, timeDelta) {
+                this.angle += this.data.speed * (timeDelta / 1000); // Ενημέρωση γωνίας
+                let x = this.data.radius * Math.cos(this.angle);
+                let z = this.data.radius * Math.sin(this.angle);
+                this.el.setAttribute('position', {x: x, y: 1.5, z: z - 3});
+            }
+        });
+    </script>
+</head>
+<body>
+    <a-scene>
+        <a-assets>
+            <img id="angelImage" src="angel.jpg">
+        </a-assets>
+
+        <!-- Φωτισμός -->
+        <a-light type="directional" position="0 5 -3" intensity="0.6"></a-light>
+        <a-light type="ambient" intensity="0.3"></a-light>
+
+        <!-- Κάμερα -->
+        <a-entity position="0 1.6 4">
+            <a-camera></a-camera>
+        </a-entity>
+
+        <!-- Αγγελος με κυκλική κίνηση -->
+        <a-entity id="angel" 
+                  geometry="primitive: plane; height: 2; width: 2"
+                  material="shader: flat; src: #angelImage"
+                  position="2 1.5 -3"
+                  circular-motion="radius: 2; speed: 1">
+        </a-entity>
+    </a-scene>
+</body>
+</html>
+
